@@ -1,14 +1,14 @@
-import React from 'react'
-import { lazy, Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-const AppRoutes = () => {
-  const Home = lazy(() => import('../pages/Home'))
-  const About = lazy(() => import('../pages/About'))
-  const Contact = lazy(() => import('../pages/Contact'))
-  const Login = lazy(() => import('../pages/auth/Login'))
-  const Register = lazy(() => import('../pages/auth/Register'))
+// Lazy imports (move them OUTSIDE the component)
+const Home = lazy(() => import('../pages/Home'))
+const About = lazy(() => import('../pages/About'))
+const Contact = lazy(() => import('../pages/Contact'))
+const Login = lazy(() => import('../pages/auth/Login'))
+const Register = lazy(() => import('../pages/auth/Register'))
 
+const AppRoutes:React.FC = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>

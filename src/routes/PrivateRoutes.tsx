@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PrivateRoutes = () => {
+const PrivateRoutes:React.FC = () => {
   return (
     <div>PrivateRoutes</div>
   )

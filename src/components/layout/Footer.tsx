@@ -5,7 +5,7 @@ import Logo from '../../assets/logo.png';
 import playstore from '../../assets/playstore.png'
 import ios from '../../assets/ios.png'
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <>
       {/* ==========================================Top footer section ==========================================*/}
@@ -59,17 +59,15 @@ const Footer = () => {
               <img src={playstore} alt="Play Store" className='h-10 bg-[#faf1dc] rounded-lg' />
               <img src={ios} alt="iOS" className='h-10 bg-[#faf1dc] rounded-lg' />
             </div>
-
           </div>
         </div>
       </div>
 
       {/* =========================================Bottom footer section ========================================*/}
-      <footer className="bg-[#4B7269] text-white p-4 text-center">
+      <footer className="bg-[#4B7269] text-white p-4 text-center w-full">
         © 2026 TypeX Productions. All rights reserved.
       </footer>
     </>
-
   )
 }
 

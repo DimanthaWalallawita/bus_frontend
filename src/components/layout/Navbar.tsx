@@ -4,7 +4,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import Logo from '../../assets/Logo.png';
 import { motion } from "framer-motion";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (

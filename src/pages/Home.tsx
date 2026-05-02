@@ -4,7 +4,7 @@ import { IoFingerPrint } from "react-icons/io5";
 import playstore from '../assets/playstore.png'
 import ios from '../assets/ios.png'
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div>
       <div className="h-fit p-4 md:p-0 md:h-[80vh] bg-cover bg-center flex flex-col items-center justify-center" style={{ backgroundImage: `url(${banner})` }}>

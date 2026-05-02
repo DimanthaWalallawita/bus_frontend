@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AdminRoutes = () => {
+const AdminRoutes:React.FC = () => {
   return (
     <div>AdminRoutes</div>
   )
