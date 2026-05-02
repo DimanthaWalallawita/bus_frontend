@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaFacebook, FaInstagram, FaGoogle } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/Logo.png';
 import playstore from '../../assets/playstore.png'
 import ios from '../../assets/ios.png'
 
