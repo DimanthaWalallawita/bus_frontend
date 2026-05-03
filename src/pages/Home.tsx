@@ -13,10 +13,10 @@ const Home: React.FC = () => {
         </h1>
 
         <div className='bg-[#ffffff41] py-8 px-2 md:px-32 mt-8 rounded-md md:rounded-full shadow-lg gap-3 md:gap-6 flex md:flex-row flex-col items-center'>
-          <input type="text" placeholder="To: " className="outline-none bg-white p-2 rounded-md md:rounded-2xl w-62.5" />
-          <input type="text" placeholder="From: " className="outline-none bg-white p-2 rounded-md md:rounded-2xl w-62.5" />
-          <input type="date" className="outline-none bg-white p-2 rounded-md md:rounded-2xl w-62.5" />
-          <button className='bg-[#03B188] text-white px-4 py-2 rounded-lg hover:bg-[#029a7a]'>SEARCH NOW</button>
+          <input type="text" placeholder="To: " className="outline-none bg-white p-2 rounded-md md:rounded-2xl w-62.5 h-10" />
+          <input type="text" placeholder="From: " className="outline-none bg-white p-2 rounded-md md:rounded-2xl w-62.5 h-10" />
+          <input type="date" className="outline-none bg-white p-2 rounded-md md:rounded-2xl w-62.5 h-10" />
+          <button className='bg-[#03B188] text-white px-4 py-2 rounded-lg hover:bg-[#029a7a] h-10'>SEARCH NOW</button>
         </div>
 
         <div className='w-[60%] hidden md:flex justify-around h-60 gap-10 absolute -bottom-32'>
