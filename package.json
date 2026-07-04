@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< Updated upstream
+=======
+    "@animateicons/react": "^0.3.3",
+    "@react-google-maps/api": "^2.20.8",
+>>>>>>> Stashed changes
     "@tailwindcss/vite": "^4.2.4",
     "framer-motion": "^12.38.0",
     "react": "^19.2.5",
