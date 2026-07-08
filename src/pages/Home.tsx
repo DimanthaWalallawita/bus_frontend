@@ -1,5 +1,5 @@
 import React from 'react'
-import banner from '../assets/city-bus-autumn-forest-road-vehicle-motion.jpg'
+import banner from '../assets/city-bus-autumn-forest-road-vehicle-motion.webp'
 import { IoFingerPrint } from "react-icons/io5";
 import playstore from '../assets/playstore.png'
 import ios from '../assets/ios.png'

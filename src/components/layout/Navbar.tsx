@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
       {/* ============================== Main Header Section ==================================== */}
       <div className='flex justify-between items-center px-4 md:px-52 py-3 bg-black'>
         <Link to='/'>
-          <motion.img src={Logo} alt="Logo" className='h-10' initial={{ x: -100 }} animate={{ x: 0 }} transition={{ duration: 1 }}/>
+          <motion.img src={Logo} alt="Logo" className='h-10' initial={{ x: -100 }} animate={{ x: 0 }} transition={{ duration: 1 }} />
         </Link>
 
         <div className='hidden md:flex items-center gap-8'>
@@ -46,10 +46,13 @@ const Navbar: React.FC = () => {
             </li>
           </ul>
 
-          <button className='bg-[#03B188] text-black text-xl font-normal px-8 h-8 rounded-3xl hover:bg-[#029a7a] flex items-center poppins-light'>
-            Login
-          </button>
+          <Link to='/login'>
+            <button className='bg-[#03B188] text-black text-xl font-normal px-8 h-8 rounded-3xl hover:bg-[#029a7a] flex items-center poppins-light'>
+              Login
+            </button>
+          </Link>
         </div>
+
 
         <div className='md:hidden text-white text-2xl cursor-pointer'>
           {open ? (

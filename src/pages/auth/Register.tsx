@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {User, Mail, Phone, Lock, Eye, EyeOff, MapPin, ArrowRight, IdCard} from "lucide-react";
-import banner from '../../assets/traffic-vehicle-urban-reflections-city.jpg'
+import banner from '../../assets/traffic-vehicle-urban-reflections-city.webp'
+import { Link } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -313,9 +314,9 @@ const Register: React.FC = () => {
 
           <p className="mt-6 text-center text-sm text-gray-500">
             Already have an account?{" "}
-            <a href="#" className="text-[#03B188] font-semibold hover:underline">
+            <Link to="/login" className="text-[#03B188] font-semibold hover:underline">
               Log in
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -75,8 +75,8 @@ const BusCard: React.FC<BusRoute> = ({
             </div>
 
             {/* Body */}
-            <div className='w-full grid grid-cols-1 md:grid-cols-[110px_1fr_170px]'>
-                <div className='h-20 md:h-36 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/10'>
+            <div className='w-full grid grid-cols-1 md:grid-cols-[140px_1fr_170px]'>
+                <div className='h-20 md:h-36 flex items-center px-5 justify-center border-b md:border-b-0 md:border-r border-white/10'>
                     <h1 className='text-white text-2xl md:text-4xl font-bold poppins-bold-italic border-2 border-white/70 p-2 md:p-3 rounded-2xl'>
                         {operator}
                     </h1>
