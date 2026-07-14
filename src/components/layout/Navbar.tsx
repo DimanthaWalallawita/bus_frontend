@@ -89,9 +89,11 @@ const Navbar: React.FC = () => {
             </li>
           </ul>
 
-          <button className='bg-[#03B188] text-black px-6 py-2 rounded-3xl' onClick={closeMenu}>
-            Login
-          </button>
+          <Link to='/login'>
+            <button className='bg-[#03B188] text-black px-6 py-2 rounded-3xl' onClick={closeMenu}>
+              Login
+            </button>
+          </Link>
         </div>
       )}
     </div>
