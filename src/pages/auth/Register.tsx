@@ -1,13 +1,28 @@
 import React, { useState } from "react";
-import {User, Mail, Phone, Lock, Eye, EyeOff, MapPin, ArrowRight, IdCard} from "lucide-react";
+import { User, Mail, Phone, Lock, Eye, EyeOff, MapPin, ArrowRight, IdCard } from "lucide-react";
 import banner from '../../assets/traffic-vehicle-urban-reflections-city.webp'
 import { Link } from 'react-router-dom';
+import Snackbar from "@mui/material/Snackbar";
+import type { AlertColor } from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
+import { registerUser } from "../../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/Hooks";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Register: React.FC = () => {
+  const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [formData, setFormData] = useState({ fullName: "", nic: "", email: "", phone: "", password: "", confirmPassword: "",});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorType, setErrorType] = useState<AlertColor>("error");
+  const [formData, setFormData] = useState({ fullName: "", nic: "", email: "", phone: "", password: "", confirmPassword: "", active: true });
+
+  const dispatch = useAppDispatch();
+
+  const { loading, error, user } = useAppSelector(
+    (state) => state.auth
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -15,19 +30,55 @@ const Register: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!agreed) {
-      alert("You must agree to the terms and conditions.");
+
+    if (formData.password != formData.confirmPassword) {
+      setErrorMessage("Password is not matched with the confirm password");
+      setOpen(true);
+      setErrorType("error");
       return;
     }
 
-    console.log(formData, agreed);
+    if (!agreed) {
+      setErrorMessage("Please agree to the terms and conditions.");
+      setOpen(true);
+      setErrorType("error");
+      return;
+    }
+
+    const { confirmPassword, ...registerData } = formData;
+
+    const result = await dispatch(registerUser(registerData));
+
+    if (registerUser.rejected.match(result)) {
+      setErrorMessage(result.payload || "Registration failed");
+      setOpen(true);
+      setErrorType("error");
+
+      return;
+    }
+
+    setErrorMessage("Registration successful! Please log in.");
+    setOpen(true);
+    setErrorType("success");
   };
 
   return (
     <div className="min-h-screen w-full bg-[#F2F4F3] flex items-center justify-center bg-cover bg-center p-4 sm:p-6 md:p-10 font-sans" style={{ backgroundImage: `url(${banner})` }}>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          severity={errorType}
+          onClose={() => setOpen(false)}
+          sx={{ width: "100%" }}
+        >
+          {errorMessage}
+        </Alert>
+      </Snackbar>
       <div className="relative w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-[28px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] overflow-hidden">
         {/* Punch-hole notches — desktop (vertical seam) */}
         <div className="hidden md:block absolute left-[38%] -translate-x-1/2 -top-4 w-8 h-8 rounded-full bg-[#F2F4F3] z-20" />
@@ -53,7 +104,7 @@ const Register: React.FC = () => {
               <br />
               Routes
             </h1>
-            <p className="mt-3 text-sm text-white/80 max-w-[220px]">
+            <p className="mt-3 text-sm text-white/80 max-w-55">
               Book your seat, ride the island. One account, every route.
             </p>
           </div>
@@ -73,7 +124,7 @@ const Register: React.FC = () => {
                         }`}
                     />
                     {i !== arr.length - 1 && (
-                      <span className="w-[2px] flex-1 min-h-[26px] bg-white/40" />
+                      <span className="w-0.5 flex-1 min-h-6.5 bg-white/40" />
                     )}
                   </div>
                   <div className="pb-6 -mt-1">
@@ -100,7 +151,7 @@ const Register: React.FC = () => {
                 </span>
               </p>
               {/* barcode */}
-              <div className="flex items-end gap-[2px] h-6">
+              <div className="flex items-end gap-0.5 h-6">
                 {[3, 1, 2, 1, 3, 2, 1, 1, 2, 3, 1, 2].map((w, i) => (
                   <span
                     key={i}
@@ -126,26 +177,27 @@ const Register: React.FC = () => {
             {/* Full name + nic */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-              <label
-                htmlFor="fullName"
-                className="block text-xs font-semibold text-gray-700 mb-1.5"
-              >
-                Full name
-              </label>
-              <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  placeholder="Nimal Perera"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#03B188] focus:border-transparent transition"
-                />
+                <label
+                  htmlFor="fullName"
+                  className="block text-xs font-semibold text-gray-700 mb-1.5"
+                >
+                  Full name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    placeholder="Nimal Perera"
+                    required
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#03B188] focus:border-transparent transition"
+                  />
+                </div>
               </div>
-            </div>
-              
+
               <div>
                 <label
                   htmlFor="nic"
@@ -161,6 +213,7 @@ const Register: React.FC = () => {
                     type="text"
                     placeholder="951234567V"
                     value={formData.nic}
+                    required
                     onChange={handleChange}
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#03B188] focus:border-transparent transition"
                   />
@@ -183,6 +236,7 @@ const Register: React.FC = () => {
                     id="email"
                     name="email"
                     type="email"
+                    required
                     placeholder="you@example.com"
                     value={formData.email}
                     onChange={handleChange}
@@ -205,6 +259,7 @@ const Register: React.FC = () => {
                     name="phone"
                     type="tel"
                     placeholder="07X XXX XXXX"
+                    required
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#03B188] focus:border-transparent transition"
@@ -229,6 +284,7 @@ const Register: React.FC = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a password"
                   value={formData.password}
+                  required
                   onChange={handleChange}
                   className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#03B188] focus:border-transparent transition"
                 />
@@ -263,6 +319,7 @@ const Register: React.FC = () => {
                   type={showConfirm ? "text" : "password"}
                   placeholder="Re-enter your password"
                   value={formData.confirmPassword}
+                  required
                   onChange={handleChange}
                   className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#03B188] focus:border-transparent transition"
                 />
@@ -305,10 +362,17 @@ const Register: React.FC = () => {
             {/* Submit */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full flex items-center justify-center gap-2 bg-[#03B188] text-white text-sm font-semibold py-3 rounded-xl mt-2 hover:bg-[#029876] active:bg-[#028267] transition-colors"
             >
-              Create account
-              <ArrowRight className="w-4 h-4" />
+              {loading ? (
+                <CircularProgress size="30px" aria-label="Loading…" />
+              ) : (
+                <>
+                  Create account
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
           </form>
 
