@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const closeMenu = () => setOpen(false);
 
   return (
     <div>
@@ -56,7 +57,7 @@ const Navbar: React.FC = () => {
 
         <div className='md:hidden text-white text-2xl cursor-pointer'>
           {open ? (
-            <FaTimes onClick={() => setOpen(false)} />
+            <FaTimes onClick={closeMenu} />
           ) : (
             <FaBars onClick={() => setOpen(true)} />
           )}
@@ -67,20 +68,28 @@ const Navbar: React.FC = () => {
         <div className='md:hidden bg-black text-white flex flex-col items-center gap-5 py-5'>
           <ul className='flex flex-col gap-4 text-center'>
             <li className='text-white font-semibold poppins-semibold'>
-              <Link to='/explore'>EXPLORE</Link>
+              <Link to='/explore' onClick={closeMenu}>
+                EXPLORE
+              </Link>
             </li>
             <li className='text-white font-semibold poppins-semibold'>
-              <Link to='/contact'>CONTACT</Link>
+              <Link to='/contact' onClick={closeMenu}>
+                CONTACT
+              </Link>
             </li>
             <li className='text-white font-semibold poppins-semibold'>
-              <Link to='/about'>ABOUT</Link>
+              <Link to='/about' onClick={closeMenu}>
+                ABOUT
+              </Link>
             </li>
             <li className='text-white font-semibold poppins-semibold'>
-              <Link to='/faqs'>FAQS</Link>
+              <Link to='/faqs' onClick={closeMenu}>
+                FAQS
+              </Link>
             </li>
           </ul>
 
-          <button className='bg-[#03B188] text-black px-6 py-2 rounded-3xl'>
+          <button className='bg-[#03B188] text-black px-6 py-2 rounded-3xl' onClick={closeMenu}>
             Login
           </button>
         </div>
