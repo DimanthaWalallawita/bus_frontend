@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
 
       {/* ============================== Main Header Section ==================================== */}
       <div className='flex justify-between items-center px-4 md:px-52 py-3 bg-black'>
-        <Link to='/'>
+        <Link to='/' onClick={closeMenu}>
           <motion.img src={Logo} alt="Logo" className='h-10' initial={{ x: -100 }} animate={{ x: 0 }} transition={{ duration: 1 }} />
         </Link>
 
